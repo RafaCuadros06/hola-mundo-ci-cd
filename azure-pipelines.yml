@@ -1,0 +1,16 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "Hola Mundo desde Azure Pipelines"
+  displayName: 'Run Hello World Script'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: $(Build.SourcesDirectory)/index.html
+    ArtifactName: 'webcontent'
+    publishLocation: 'Container'
+
