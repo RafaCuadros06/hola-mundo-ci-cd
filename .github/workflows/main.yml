@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+# Controla en qué ramas se ejecuta este flujo de trabajo
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Print "Hola Mundo"
+      run: echo "Hola Mundo desde GitHub Actions"
+
+    - name: Publish HTML file
+      run: |
+        mkdir -p output
+        echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hola Mundo</title></head><body><h1>Hola Mundo</h1></body></html>' > output/index.html
+        echo "HTML file created"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: webcontent
+        path: output/index.html
